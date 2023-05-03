@@ -130,3 +130,4 @@ dist
 .pnp.*
 build
 .cache
+.DS_STORE
