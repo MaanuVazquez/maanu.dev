@@ -1,0 +1,16 @@
+@font-face {
+  font-family: 'OpenDyslexic3';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url('/fonts/OpenDyslexic3-Regular.woff2') format('woff2');
+}
+
+[data-font='default'] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+[data-font='accessible'] {
+  font-family: 'OpenDyslexic3', 'Comic Sans MS', 'Comic Sans', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+}
