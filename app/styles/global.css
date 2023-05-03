@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'OpenDyslexic3';
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url('/fonts/OpenDyslexic3-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'OpenDyslexic3';
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url('/fonts/OpenDyslexic3-Bold.woff2') format('woff2');
+}
