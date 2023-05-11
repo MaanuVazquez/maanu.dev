@@ -1,34 +1,81 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { json, type LinksFunction, type LoaderArgs } from '@remix-run/node'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
+import { useMemo } from 'react'
 
-import type { LinksFunction } from '@remix-run/node'
-
-import Navbar from './components/Navbar/Navbar'
+import { APP_CONSTANTS, FAVICONS } from './constants/app'
+import { Footer } from './layout/Footer/Footer'
+import Navbar from './layout/Navbar/Navbar'
+import { getSections } from './models/sections'
+import { getFontFromCookies } from './services/cookies/font.server'
+import { getThemeFromCookies } from './services/cookies/theme.server'
 import global from './styles/global.css'
 import tailwind from './styles/tailwind.css'
+import { Theme } from './types'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: global },
   { rel: 'stylesheet', href: tailwind },
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
-  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=DotGothic16&display=swap' }
+  {
+    rel: 'manifest',
+    href: '/app.webmanifest'
+  },
+  ...FAVICONS
 ]
 
+export const loader = async ({ request }: LoaderArgs) => {
+  const [sections, theme, font] = await Promise.all([
+    getSections(),
+    getThemeFromCookies(request),
+    getFontFromCookies(request)
+  ])
+
+  const sectionsWithSlug = sections.map(({ id, slug, name }) => ({ slug, id, name }))
+  const parsedUrl = new URL(request.url)
+
+  return json({ sections: sectionsWithSlug, theme, font, origin: request.url, href: parsedUrl.href })
+}
+
 export default function App() {
+  const { theme, font, sections, origin, href } = useLoaderData<typeof loader>()
+
+  const htmlProps = useMemo(() => {
+    return {
+      lang: APP_CONSTANTS.locale,
+      'data-theme': theme === Theme.System ? undefined : theme,
+      'data-font': font,
+      'xmlns:og': 'http://opengraphprotocol.org/schema/'
+    }
+  }, [theme, font])
+
   return (
-    <html lang="en" data-theme="light">
+    <html {...htmlProps}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="apple-mobile-web-app-title" content={APP_CONSTANTS.title} />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="og:url" content={href} />
+        <meta name="og:image" content={`${origin}/android-chrome-512x512.png`} />
+        <meta name="og:locale" content={APP_CONSTANTS.locale} />
+        <meta name="og:site_name" content={APP_CONSTANTS.title} />
+        <meta name="og:type" content="website" />
+        <meta name="theme-color" content={APP_CONSTANTS.themeColor} />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="author" content="Maanu Vazquez" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="language" content={APP_CONSTANTS.locale} />
+        <meta name="MobileOptimized" content="320" />
+        <meta name="pagename" content={APP_CONSTANTS.title} />
         <Meta />
         <Links />
       </head>
       <body>
-        <main className="w-scren h-screen">
-          <Navbar />
-          <div className="my-20">
+        <main className="flex h-screen w-screen flex-col justify-between pb-20">
+          <Navbar sections={sections} font={font} theme={theme} />
+          <div className="my-10 px-5 sm:my-20 sm:px-0">
             <Outlet />
           </div>
+          <Footer />
         </main>
         <ScrollRestoration />
         <Scripts />
