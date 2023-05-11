@@ -1,2 +1,3 @@
 # maanu.dev
-My personal blog
+
+Source code of my personal development blog
