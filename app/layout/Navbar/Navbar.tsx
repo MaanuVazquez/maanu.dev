@@ -1,9 +1,12 @@
 import { EnvelopeOpen, GithubLogo, Moon, Sun, TextT, Wheelchair } from '@phosphor-icons/react'
-import { Form, Link } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 import { useMemo } from 'react'
 
 import { AccessibleFont } from '~/types'
 import { Theme } from '~/types'
+
+import NavbarLink from './NavbarLink'
+import { linkClasses } from './utils'
 
 type Props = {
   theme: Theme
@@ -50,32 +53,32 @@ export default function Navbar({ theme, font, sections }: Props) {
   const sectionLinks = useMemo(() => {
     return sections.map(({ id, slug, name }) => (
       <li key={id} className="flex self-center">
-        <Link to={`/${slug}`}>{name}</Link>
+        <NavbarLink to={`/${slug}`}>{name}</NavbarLink>
       </li>
     ))
   }, [sections])
 
   return (
     <header className="px-0 md:px-20">
-      <nav className="flex h-14 place-items-center rounded bg-primary px-10 font-mono text-xs sm:text-lg">
-        <Link className="hidden sm:inline" to="/">
+      <nav className="flex h-14 place-items-center rounded bg-primary px-10 font-mono text-xs dark:text-black sm:text-lg">
+        <NavbarLink className="hidden sm:inline" to="/">
           Maanu
-        </Link>
+        </NavbarLink>
         <ul className="mx-auto flex gap-x-6 sm:ml-auto sm:mr-0">
           <li className="inline self-center sm:hidden">
-            <Link to="/">posts</Link>
+            <NavbarLink to="/">posts</NavbarLink>
           </li>
           {sectionLinks}
-          <li className="flex self-center">{themeToggle}</li>
-          <li className="flex self-center">{fontToggle}</li>
-          <li className="flex self-center">
+          <li className={linkClasses}>{themeToggle}</li>
+          <li className={linkClasses}>{fontToggle}</li>
+          <li className={linkClasses}>
             {/* eslint-disable-next-line react/jsx-no-target-blank */}
             <a href="https://github.com/MaanuVazquez" target="_blank" rel="me">
               <GithubLogo className="text-xl sm:text-2xl" aria-hidden />
               <span className="sr-only">github</span>
             </a>
           </li>
-          <li className="flex self-center">
+          <li className={linkClasses}>
             <a href="mailto:maanuvazquez@gmail.com" rel="noreferrer">
               <EnvelopeOpen className="text-xl sm:text-2xl" aria-hidden />
               <span className="sr-only">contact</span>
