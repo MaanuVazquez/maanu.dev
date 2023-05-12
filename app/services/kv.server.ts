@@ -14,7 +14,7 @@ declare global {
 // create a new connection to the DB with every change either.
 // in production we'll have a single connection to the DB.
 if (process.env.NODE_ENV === 'production') {
-  redisClient = new Redis(vars.REDIS_HOSTNAME)
+  redisClient = new Redis(vars.REDIS_HOSTNAME, { family: 6 })
 } else {
   if (!global.__rc) {
     global.__rc = new Redis(vars.REDIS_HOSTNAME)
@@ -29,7 +29,6 @@ async function getKV<T>(key: string): Promise<T | null> {
 
   try {
     const value = await redisClient.get(key)
-
     if (!value) {
       return null
     }
