@@ -15,6 +15,8 @@ import tailwind from './styles/tailwind.css'
 import { Theme } from './types'
 
 export const links: LinksFunction = () => [
+  { rel: 'preload', href: global },
+  { rel: 'preload', href: tailwind },
   { rel: 'stylesheet', href: global },
   { rel: 'stylesheet', href: tailwind },
   {
