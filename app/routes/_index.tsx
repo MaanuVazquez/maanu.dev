@@ -24,6 +24,10 @@ export async function loader() {
   }
 }
 
+export const handle = {
+  hydrate: false
+}
+
 export default function Index() {
   const { posts, bookmarks } = useLoaderData<typeof loader>()
 

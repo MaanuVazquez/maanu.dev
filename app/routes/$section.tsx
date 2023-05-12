@@ -24,6 +24,10 @@ export async function loader({ params }: LoaderArgs) {
   return json({ section })
 }
 
+export const handle = {
+  hydrate: false
+}
+
 export function meta({ data }: V2_MetaArgs): V2_MetaDescriptor[] {
   return generateArticleMeta({
     title: data.section.name,

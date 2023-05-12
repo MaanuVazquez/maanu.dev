@@ -3,6 +3,8 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderD
 import { useMemo } from 'react'
 
 import { APP_CONSTANTS, FAVICONS } from './constants/app'
+import { useIsBot } from './context/IsBot'
+import { useShouldDisableScripts } from './hooks/useShouldDisableScripts'
 import { Footer } from './layout/Footer/Footer'
 import Navbar from './layout/Navbar/Navbar'
 import { getSections } from './models/sections'
@@ -38,6 +40,9 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function App() {
   const { theme, font, sections, origin, href } = useLoaderData<typeof loader>()
 
+  const isBot = useIsBot()
+  const shouldDisableScripts = useShouldDisableScripts() || isBot
+
   const htmlProps = useMemo(() => {
     return {
       lang: APP_CONSTANTS.locale,
@@ -52,20 +57,22 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="referrer" content="origin" />
         <meta name="apple-mobile-web-app-title" content={APP_CONSTANTS.title} />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="og:url" content={href} />
-        <meta name="og:image" content={`${origin}/android-chrome-512x512.png`} />
-        <meta name="og:locale" content={APP_CONSTANTS.locale} />
-        <meta name="og:site_name" content={APP_CONSTANTS.title} />
-        <meta name="og:type" content="website" />
+        <meta name="msapplication-TileColor" content={APP_CONSTANTS.themeColor} />
         <meta name="theme-color" content={APP_CONSTANTS.themeColor} />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="author" content="Maanu Vazquez" />
         <meta name="HandheldFriendly" content="True" />
         <meta name="language" content={APP_CONSTANTS.locale} />
         <meta name="MobileOptimized" content="320" />
         <meta name="pagename" content={APP_CONSTANTS.title} />
+        <meta property="og:url" content={href} />
+        <meta property="og:locale" content={APP_CONSTANTS.locale} />
+        <meta property="og:image" content={`${origin}/android-chrome-512x512.png`} />
+        <meta property="og:site_name" content={APP_CONSTANTS.title} />
+        <link rel="canonical" href={href} />
         <Meta />
         <Links />
       </head>
@@ -77,8 +84,8 @@ export default function App() {
           </div>
           <Footer />
         </main>
-        <ScrollRestoration />
-        <Scripts />
+        {shouldDisableScripts ? null : <ScrollRestoration />}
+        {shouldDisableScripts ? null : <Scripts />}
         <LiveReload />
       </body>
     </html>
