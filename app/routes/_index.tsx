@@ -4,7 +4,6 @@ import { useMemo } from 'react'
 
 import type { V2_MetaFunction } from '@remix-run/node'
 
-import BlogGreeting from '~/components/BlogGreeting/BlogGreeting'
 import Bookmark from '~/components/Bookmark/Bookmark'
 import Post from '~/components/Post/Post'
 import { getBookmarks } from '~/models/bookmarks'
@@ -37,7 +36,7 @@ export default function Index() {
 
   return (
     <article className="flex flex-col">
-      <BlogGreeting />
+      <h1 className="mx-auto mb-10 text-xl sm:text-3xl">Welcome to my dev blog</h1>
       <ol className="mx-4 flex flex-col gap-y-3 text-xs sm:mx-auto sm:gap-y-5 sm:text-lg md:text-2xl">
         {allPosts.map(post => {
           if (isPost(post)) {
