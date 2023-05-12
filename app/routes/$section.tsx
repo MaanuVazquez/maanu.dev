@@ -8,7 +8,8 @@ import type { V2_MetaArgs } from '@remix-run/react'
 
 import Markdown from '~/components/Markdown/Markdown'
 import { getSection } from '~/models/sections'
-import { generateMeta } from '~/utils/meta'
+import { generateArticleMeta } from '~/utils/meta'
+import { capitalizeWord } from '~/utils/string'
 
 export async function loader({ params }: LoaderArgs) {
   const slug = params.section as string
@@ -24,7 +25,11 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 export function meta({ data }: V2_MetaArgs): V2_MetaDescriptor[] {
-  return generateMeta(data.section.name)
+  return generateArticleMeta({
+    title: data.section.name,
+    updatedAt: data.section.updatedAt,
+    createdAt: data.section.createdAt
+  })
 }
 
 export default function PostSlug() {
@@ -36,7 +41,7 @@ export default function PostSlug() {
 
   return (
     <article className="max-w-screen prose mx-4 h-full sm:mx-auto">
-      <h1 className="text-primary">{section.name}</h1>
+      <h1 className="text-primary">{capitalizeWord(section.name)}</h1>
       <hr className="mt-0" />
       <Markdown>{section.body}</Markdown>
     </article>

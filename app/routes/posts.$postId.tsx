@@ -10,7 +10,7 @@ import type { V2_MetaArgs } from '@remix-run/react'
 import Markdown from '~/components/Markdown/Markdown'
 import { getPost } from '~/models/posts'
 import { formatMonthDayYear } from '~/utils/date'
-import { generateMeta } from '~/utils/meta'
+import { generateArticleMeta } from '~/utils/meta'
 import { isPostEdited, calculateReadTime } from '~/utils/posts'
 
 export async function loader({ params }: LoaderArgs) {
@@ -27,7 +27,12 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 export function meta({ data }: V2_MetaArgs) {
-  return generateMeta(data.post.title, data.post.description)
+  return generateArticleMeta({
+    title: data.post.title,
+    updatedAt: data.post.updatedAt,
+    createdAt: data.post.createdAt,
+    description: data.post.description
+  })
 }
 
 export default function PostSlug() {
