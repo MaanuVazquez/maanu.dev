@@ -35,9 +35,15 @@ export const markownComponents = {
       </SyntaxHighlighter>
     )
   },
-  a: ({ node, ...rest }: ComponentPropsWithoutRef<'a'> & ReactMarkdownProps) => {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a {...rest} target="_blank" rel="noopener noreferrer" />
+  code: ({ node, ...rest }: ComponentPropsWithoutRef<'code'> & ReactMarkdownProps) => {
+    return <code className="dark:text-primary" {...rest} />
+  },
+  a: ({ node, children, ...rest }: ComponentPropsWithoutRef<'a'> & ReactMarkdownProps) => {
+    return (
+      <a {...rest} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    )
   },
   h1: ({ node, ...rest }: ComponentPropsWithoutRef<'h1'> & ReactMarkdownProps) => {
     return <Header {...rest} headerComponent="h1" />
