@@ -131,3 +131,4 @@ dist
 build
 .cache
 .DS_STORE
+.unlighthouse

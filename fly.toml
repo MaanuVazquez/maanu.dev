@@ -14,7 +14,6 @@ kill_timeout = "5s"
 [env]
   NODE_ENV = "production"
   PORT = "8080"
-  PRIMARY_REGION = "iad"
 
 [[services]]
   protocol = "tcp"
