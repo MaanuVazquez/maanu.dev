@@ -1,9 +1,9 @@
-import format from 'date-fns/format'
+import { formatInTimeZone } from 'date-fns-tz'
 
 import { capitalizeWord } from './string'
 
 export function getCurrentDayPeriod() {
-  const currentPeriod = format(new Date(), 'bbb')
+  const currentPeriod = formatInTimeZone(new Date(), 'America/New_York', 'bbb')
   const lowerCase = currentPeriod.toLocaleLowerCase()
 
   if (lowerCase === 'pm' || lowerCase === 'am') {
@@ -14,9 +14,9 @@ export function getCurrentDayPeriod() {
 }
 
 export function formatMonthDayYear(date: string) {
-  return format(new Date(date), 'MM/dd/yyyy')
+  return formatInTimeZone(new Date(date), 'America/New_York', 'MM/dd/yyyy')
 }
 
 export function formatRichDate(date: string) {
-  return format(new Date(date), 'MMMM dd, yyyy')
+  return formatInTimeZone(new Date(date), 'America/New_York', 'MMMM dd, yyyy')
 }
