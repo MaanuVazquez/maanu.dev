@@ -40,7 +40,7 @@ export default function PostSlug() {
 
   return (
     <article className="max-w-screen prose mx-4 h-full sm:mx-auto">
-      <h1 className="text-primary">{post.title}</h1>
+      <h1 className="dark:text-primary">{post.title}</h1>
       <div className="flex flex-col gap-x-4 md:flex-row">
         <p className="mb-0 mt-0 flex place-items-center gap-x-4">
           <Calendar aria-hidden weight="bold" className="text-xl text-primary" />

@@ -45,7 +45,7 @@ export default function PostSlug() {
 
   return (
     <article className="max-w-screen prose mx-4 h-full sm:mx-auto">
-      <h1 className="text-primary">{capitalizeWord(section.name)}</h1>
+      <h1 className="dark:text-primary">{capitalizeWord(section.name)}</h1>
       <hr className="mt-0" />
       <Markdown>{section.body}</Markdown>
     </article>

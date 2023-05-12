@@ -58,7 +58,6 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="referrer" content="origin" />
         <meta name="apple-mobile-web-app-title" content={APP_CONSTANTS.title} />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-TileColor" content={APP_CONSTANTS.themeColor} />
@@ -73,6 +72,8 @@ export default function App() {
         <meta property="og:image" content={`${origin}/android-chrome-512x512.png`} />
         <meta property="og:site_name" content={APP_CONSTANTS.title} />
         <link rel="canonical" href={href} />
+        <link rel="webmention" href="https://webmention.io/maanu.dev/webmention" />
+        <link rel="pingback" href="https://webmention.io/maanu.dev/xmlrpc" />
         <Meta />
         <Links />
       </head>
