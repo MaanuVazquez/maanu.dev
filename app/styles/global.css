@@ -14,3 +14,8 @@
   font-family: 'OpenDyslexic3', 'Comic Sans MS', 'Comic Sans', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
 }
+
+::selection {
+  color: black;
+  background: hsl(var(--p));
+}

@@ -43,7 +43,7 @@ export default function PostSlug() {
       <h1 className="dark:text-primary">{post.title}</h1>
       <div className="flex flex-col gap-x-4 md:flex-row">
         <p className="mb-0 mt-0 flex place-items-center gap-x-4">
-          <Calendar aria-hidden weight="bold" className="text-xl text-primary" />
+          <Calendar aria-hidden weight="bold" className="text-xl dark:text-primary" />
           Posted on {formatMonthDayYear(post.createdAt)}
           {isPostEdited(post.createdAt, post.updatedAt) && (
             <span className="hidden md:block">
@@ -53,7 +53,7 @@ export default function PostSlug() {
         </p>
       </div>
       <p className="mb-0 mt-0 flex place-items-center gap-x-4">
-        <Coffee aria-hidden weight="bold" className="text-xl text-primary" />
+        <Coffee aria-hidden weight="bold" className="text-xl dark:text-primary" />
         {calculateReadTime(post.body.length)} min read
       </p>
       <hr className="mt-0" />

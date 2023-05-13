@@ -36,7 +36,10 @@ export const markownComponents = {
     )
   },
   code: ({ node, ...rest }: ComponentPropsWithoutRef<'code'> & ReactMarkdownProps) => {
-    return <code className="dark:text-primary" {...rest} />
+    // Quick fix to remove inline prop which does not exist but it is coming from
+    // react-markdown
+    const { inline, ...props } = rest as unknown as { inline: boolean; children: string[] }
+    return <code className="dark:text-primary" {...props} />
   },
   a: ({ node, children, ...rest }: ComponentPropsWithoutRef<'a'> & ReactMarkdownProps) => {
     return (

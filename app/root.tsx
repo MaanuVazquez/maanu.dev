@@ -15,8 +15,8 @@ import tailwind from './styles/tailwind.css'
 import { Theme } from './types'
 
 export const links: LinksFunction = () => [
-  { rel: 'preload', href: global },
-  { rel: 'preload', href: tailwind },
+  { rel: 'preload', as: 'style', href: global },
+  { rel: 'preload', as: 'style', href: tailwind },
   { rel: 'stylesheet', href: global },
   { rel: 'stylesheet', href: tailwind },
   {
@@ -36,7 +36,7 @@ export const loader = async ({ request }: LoaderArgs) => {
   const sectionsWithSlug = sections.map(({ id, slug, name }) => ({ slug, id, name }))
   const parsedUrl = new URL(request.url)
 
-  return json({ sections: sectionsWithSlug, theme, font, origin: request.url, href: parsedUrl.href })
+  return json({ sections: sectionsWithSlug, theme, font, origin: parsedUrl.origin, href: parsedUrl.href })
 }
 
 export default function App() {
