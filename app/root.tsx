@@ -80,7 +80,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <main className="flex h-screen w-screen flex-col justify-between pb-20">
+        <main className="flex h-screen w-full flex-col justify-between pb-20">
           <Navbar sections={sections} font={font} theme={theme} />
           <div className="my-10 px-5 sm:my-20 sm:px-0">
             <Outlet />
