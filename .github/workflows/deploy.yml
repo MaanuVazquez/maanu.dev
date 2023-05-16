@@ -6,6 +6,7 @@ on:
       - completed
 jobs:
   deploy:
+    if: github.actor != 'dependabot' && github.ref_name == 'main'
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
