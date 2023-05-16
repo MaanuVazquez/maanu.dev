@@ -43,13 +43,7 @@ function normalizeAirtablePost(post: Record<AirtablePost>): Post | null {
   }
 }
 
-export async function getPosts() {
-  const cachedPosts = await getKV<Post[]>(getAllKey(KVKeys.POST))
-
-  if (cachedPosts && cachedPosts.length > 0) {
-    return cachedPosts
-  }
-
+async function fetchPosts() {
   const posts = await airtableClient<AirtablePost>(TABLE_POSTS).select().all()
   const returnPosts: Post[] = []
 
@@ -65,6 +59,18 @@ export async function getPosts() {
   saveKV(getAllKey(KVKeys.POST), returnPosts)
 
   return returnPosts
+}
+
+export async function getPosts() {
+  const cachedPosts = await getKV<Post[]>(getAllKey(KVKeys.POST))
+
+  if (cachedPosts && cachedPosts.length > 0) {
+    // Even if we have a cache hit, we update the data
+    fetchPosts()
+    return cachedPosts
+  }
+
+  return fetchPosts()
 }
 
 export async function getPost(slug: string) {

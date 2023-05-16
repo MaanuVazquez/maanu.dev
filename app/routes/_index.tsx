@@ -16,7 +16,9 @@ export const meta: V2_MetaFunction = () => generateMeta()
 export async function loader() {
   try {
     const [posts, bookmarks] = await Promise.all([getPosts(), getBookmarks()])
-    return json({ posts, bookmarks: bookmarks || [] })
+    const postWithNeededFields = posts.map(({ id, slug, title, createdAt }) => ({ id, slug, title, createdAt }))
+
+    return json({ posts: postWithNeededFields, bookmarks: bookmarks || [] })
   } catch (error) {
     console.error(error)
     return json({ posts: [], bookmarks: [] })

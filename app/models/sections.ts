@@ -31,13 +31,7 @@ function normalizeSection({ id, fields }: Record<Section>): Section | null {
   }
 }
 
-export async function getSections() {
-  const cachedSections = await getKV<Section[]>(getAllKey(KVKeys.SECTION))
-
-  if (cachedSections && cachedSections.length > 0) {
-    return cachedSections
-  }
-
+async function fetchSections() {
   const sections = await airtableClient<Section>(TABLE_SECTIONS).select().all()
   const returnSections: Section[] = []
 
@@ -53,6 +47,17 @@ export async function getSections() {
   saveKV(getAllKey(KVKeys.SECTION), returnSections)
 
   return returnSections
+}
+
+export async function getSections() {
+  const cachedSections = await getKV<Section[]>(getAllKey(KVKeys.SECTION))
+
+  if (cachedSections && cachedSections.length > 0) {
+    fetchSections()
+    return cachedSections
+  }
+
+  return fetchSections()
 }
 
 export async function getSection(slug: string) {

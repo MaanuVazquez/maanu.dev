@@ -5,7 +5,9 @@ import type { Post } from '~/models/posts'
 
 const FIFTEEN_DAYS = 15
 
-export function sortPosts(posts: Post[], bookmarks: Bookmark[]) {
+type PostMeta = Omit<Post, 'body' | 'updatedAt' | 'description' | 'status'>
+
+export function sortPosts(posts: PostMeta[], bookmarks: Bookmark[]) {
   const allPosts = [...posts, ...bookmarks]
 
   return allPosts.sort((postA, postB) => {
@@ -13,8 +15,8 @@ export function sortPosts(posts: Post[], bookmarks: Bookmark[]) {
   })
 }
 
-export function isPost(post: Post | Bookmark): post is Post {
-  return Boolean((post as Post).body)
+export function isPost(post: PostMeta | Bookmark): post is PostMeta {
+  return Boolean((post as Post).slug)
 }
 
 export function calculateReadTime(postLength: number, wpm: number = 300) {
