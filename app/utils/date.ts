@@ -7,3 +7,7 @@ export function formatMonthDayYear(date: string) {
 export function formatRichDate(date: string) {
   return formatInTimeZone(new Date(date), 'America/New_York', 'MMMM dd, yyyy')
 }
+
+export function formatRFC822(date: string) {
+  return formatInTimeZone(new Date(date), 'America/New_York', 'EEE, dd MMM yyyy HH:mm:ss xx')
+}
