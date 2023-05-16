@@ -6,7 +6,7 @@ import { KVKeys, getAllKey, getIdKey } from '~/constants/kv.server'
 import { airtableClient } from '~/services/airtable.server'
 import { getKV, saveKV } from '~/services/kv.server'
 
-import { PublishStatus } from './common'
+import { PublishStatus, fetchAndRevalidate } from './common'
 
 export type Section = {
   name: string
@@ -50,14 +50,7 @@ async function fetchSections() {
 }
 
 export async function getSections() {
-  const cachedSections = await getKV<Section[]>(getAllKey(KVKeys.SECTION))
-
-  if (cachedSections && cachedSections.length > 0) {
-    fetchSections()
-    return cachedSections
-  }
-
-  return fetchSections()
+  return fetchAndRevalidate(KVKeys.SECTION, fetchSections)
 }
 
 export async function getSection(slug: string) {

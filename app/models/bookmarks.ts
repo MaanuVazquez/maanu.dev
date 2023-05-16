@@ -1,10 +1,11 @@
-import type { CommonFields } from './common'
 import type { Record } from 'airtable'
 
 import { TABLE_BOOKMARKS } from '~/constants/airtable.server'
 import { KVKeys, getAllKey } from '~/constants/kv.server'
 import { airtableClient } from '~/services/airtable.server'
-import { getKV, saveKV } from '~/services/kv.server'
+import { saveKV } from '~/services/kv.server'
+
+import { fetchAndRevalidate, type CommonFields } from './common'
 
 export type Bookmark = {
   title: string
@@ -27,7 +28,6 @@ function normalizeBookmark(bookmark: Record<Bookmark>): Bookmark | null {
 
 async function fetchBookmarks() {
   const bookmarks = await airtableClient<Bookmark>(TABLE_BOOKMARKS).select().all()
-
   if (!bookmarks.length) {
     return []
   }
@@ -40,11 +40,5 @@ async function fetchBookmarks() {
 }
 
 export async function getBookmarks() {
-  const cachedBookmarks = await getKV<Bookmark[]>(getAllKey(KVKeys.BOOKMARK))
-
-  if (cachedBookmarks && cachedBookmarks.length > 0) {
-    return cachedBookmarks
-  }
-
-  return fetchBookmarks()
+  return fetchAndRevalidate(KVKeys.BOOKMARK, fetchBookmarks)
 }

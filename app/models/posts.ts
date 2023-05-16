@@ -6,7 +6,7 @@ import { KVKeys, getAllKey, getIdKey } from '~/constants/kv.server'
 import { airtableClient } from '~/services/airtable.server'
 import { getKV, saveKV } from '~/services/kv.server'
 
-import { PublishStatus } from './common'
+import { PublishStatus, fetchAndRevalidate } from './common'
 
 export type AirtablePost = {
   title?: string
@@ -62,15 +62,7 @@ async function fetchPosts() {
 }
 
 export async function getPosts() {
-  const cachedPosts = await getKV<Post[]>(getAllKey(KVKeys.POST))
-
-  if (cachedPosts && cachedPosts.length > 0) {
-    // Even if we have a cache hit, we update the data
-    fetchPosts()
-    return cachedPosts
-  }
-
-  return fetchPosts()
+  return fetchAndRevalidate(KVKeys.POST, fetchPosts)
 }
 
 export async function getPost(slug: string) {
