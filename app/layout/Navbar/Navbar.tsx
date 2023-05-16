@@ -1,9 +1,11 @@
-import { EnvelopeOpen, GithubLogo, Moon, Sun, TextT, Wheelchair } from '@phosphor-icons/react'
-import { Form } from '@remix-run/react'
+import { EnvelopeOpen, GithubLogo } from '@phosphor-icons/react'
 import { useMemo } from 'react'
 
-import { AccessibleFont } from '~/types'
-import { Theme } from '~/types'
+import type { AccessibleFont } from '~/types'
+import type { Theme } from '~/types'
+
+import AccessibleFontToggle from '~/components/AccessibleFontToggle/AccessibltFontToggle'
+import ThemeToggle from '~/components/ThemeToggle/ThemeToggle'
 
 import NavbarLink from './NavbarLink'
 import { linkClasses } from './utils'
@@ -15,41 +17,6 @@ type Props = {
 }
 
 export default function Navbar({ theme, font, sections }: Props) {
-  const themeToggle = useMemo(() => {
-    const currentTheme = theme === Theme.System ? Theme.Light : theme
-    return (
-      <Form className="flex" action="/preferences/theme" method="POST">
-        <input type="hidden" name="theme" value={currentTheme === Theme.Light ? Theme.Dark : Theme.Light} />
-        <button formMethod="post">
-          {currentTheme === Theme.Light ? (
-            <Moon className="text-xl sm:text-2xl" aria-hidden />
-          ) : (
-            <Sun className="text-xl sm:text-2xl" aria-hidden />
-          )}
-          <span className="sr-only">toggle theme</span>
-        </button>
-      </Form>
-    )
-  }, [theme])
-
-  const fontToggle = useMemo(() => {
-    const fontType = font === AccessibleFont.Accessible ? AccessibleFont.Default : AccessibleFont.Accessible
-
-    return (
-      <Form className="flex" action="/preferences/font" method="POST">
-        <input type="hidden" name="fontType" value={fontType} />
-        <button formMethod="post">
-          {font === AccessibleFont.Default ? (
-            <Wheelchair className="text-xl sm:text-2xl" aria-hidden />
-          ) : (
-            <TextT className="text-xl sm:text-2xl" aria-hidden />
-          )}
-          <span className="sr-only">toggle accesibility font</span>
-        </button>
-      </Form>
-    )
-  }, [font])
-
   const sectionLinks = useMemo(() => {
     return sections.map(({ id, slug, name }) => (
       <li key={id} className="flex self-center">
@@ -69,8 +36,12 @@ export default function Navbar({ theme, font, sections }: Props) {
             <NavbarLink to="/">posts</NavbarLink>
           </li>
           {sectionLinks}
-          <li className={linkClasses}>{themeToggle}</li>
-          <li className={linkClasses}>{fontToggle}</li>
+          <li className={linkClasses}>
+            <ThemeToggle theme={theme} />
+          </li>
+          <li className={linkClasses}>
+            <AccessibleFontToggle font={font} />
+          </li>
           <li className={linkClasses}>
             {/* eslint-disable-next-line react/jsx-no-target-blank */}
             <a href="https://github.com/MaanuVazquez" target="_blank" rel="me">
