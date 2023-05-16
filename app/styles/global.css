@@ -19,3 +19,8 @@
   color: black;
   background: hsl(var(--p));
 }
+
+* {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
