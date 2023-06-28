@@ -24,15 +24,15 @@ export default function ThemeToggle({ theme }: Props) {
   }, [fetcher, theme])
 
   return (
-    <fetcher.Form className="flex" action="/preferences/theme" method="POST">
-      <input type="hidden" name="theme" value={currentTheme === Theme.Light ? Theme.Dark : Theme.Light} />
-      <button formMethod="post">
+    <fetcher.Form className='flex' action='/preferences/theme' method='POST'>
+      <input type='hidden' name='theme' value={currentTheme === Theme.Light ? Theme.Dark : Theme.Light} />
+      <button formMethod='post'>
         {currentTheme === Theme.Light ? (
-          <Moon className="text-xl sm:text-2xl" aria-hidden />
+          <Moon className='text-xl sm:text-2xl' aria-hidden />
         ) : (
-          <Sun className="text-xl sm:text-2xl" aria-hidden />
+          <Sun className='text-xl sm:text-2xl' aria-hidden />
         )}
-        <span className="sr-only">toggle theme</span>
+        <span className='sr-only'>toggle theme</span>
       </button>
     </fetcher.Form>
   )

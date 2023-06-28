@@ -9,8 +9,8 @@ export default function SectionLayout() {
   const section = useAsyncValue() as Section
   return (
     <>
-      <h1 className="dark:text-primary">{capitalizeWord(section.name)}</h1>
-      <hr className="mt-0" />
+      <h1 className='dark:text-primary'>{capitalizeWord(section.name)}</h1>
+      <hr className='mt-0' />
       <Markdown>{section.body}</Markdown>
     </>
   )

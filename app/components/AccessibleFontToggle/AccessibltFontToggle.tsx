@@ -21,15 +21,15 @@ export default function AccessibleFontToggle({ font }: Props) {
   }, [font, fetcher, fontType])
 
   return (
-    <fetcher.Form className="flex" action="/preferences/font" method="POST">
-      <input type="hidden" name="fontType" value={fontType} />
-      <button formMethod="post">
+    <fetcher.Form className='flex' action='/preferences/font' method='POST'>
+      <input type='hidden' name='fontType' value={fontType} />
+      <button formMethod='post'>
         {currentFont === AccessibleFont.Default ? (
-          <Wheelchair className="text-xl sm:text-2xl" aria-hidden />
+          <Wheelchair className='text-xl sm:text-2xl' aria-hidden />
         ) : (
-          <TextT className="text-xl sm:text-2xl" aria-hidden />
+          <TextT className='text-xl sm:text-2xl' aria-hidden />
         )}
-        <span className="sr-only">toggle accesibility font</span>
+        <span className='sr-only'>toggle accesibility font</span>
       </button>
     </fetcher.Form>
   )

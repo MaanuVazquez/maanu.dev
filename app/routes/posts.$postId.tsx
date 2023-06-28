@@ -34,7 +34,7 @@ export default function PostSlug() {
   const { post } = useLoaderData<typeof loader>()
 
   return (
-    <article className="max-w-screen prose mx-4 h-full sm:mx-auto">
+    <article className='max-w-screen prose mx-4 h-full sm:mx-auto'>
       <Suspense fallback={null}>
         <Await resolve={post}>
           <Outlet />

@@ -8,16 +8,15 @@ import { linkClasses } from './utils'
 
 export default function NavbarLink({ className, children, ...rest }: RemixNavLinkProps) {
   const navClassName = useCallback(
-    ({ isActive }: { isActive: boolean }) => {
-      return `${classNames(
+    ({ isActive }: { isActive: boolean }) =>
+      `${classNames(
         { 'text-black': isActive, 'dark:text-white': isActive },
         {
           'text-white': !isActive,
           'dark:text-black': !isActive
         },
         linkClasses
-      )} ${className}`
-    },
+      )} ${className}`,
     [className]
   )
 

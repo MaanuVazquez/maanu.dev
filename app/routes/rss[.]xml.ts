@@ -11,8 +11,8 @@ import { formatRFC822 } from '~/utils/date'
 export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url)
   const posts = await getPosts()
-  let pubDate: string = ''
-  let lastBuildDate: string = ''
+  let pubDate = ''
+  let lastBuildDate = ''
 
   const formattedPosts = posts.map(({ id, updatedAt, createdAt, title, description, slug }) => {
     if (!pubDate || isBefore(parseISO(createdAt), parseISO(pubDate))) {

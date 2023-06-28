@@ -12,14 +12,15 @@ function CopyCode({ show, text }: Props) {
   const [didCopy, setDidCopy] = useState(false)
   const currentTimeout = useRef<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (!currentTimeout.current) {
         return
       }
       clearTimeout(currentTimeout.current)
-    }
-  }, [])
+    },
+    []
+  )
 
   const onCopy = useCallback(() => {
     setDidCopy(true)
@@ -42,12 +43,12 @@ function CopyCode({ show, text }: Props) {
         {didCopy ? (
           <>
             <Check aria-hidden />
-            <span className="sr-only">Copied!</span>
+            <span className='sr-only'>Copied!</span>
           </>
         ) : (
           <>
             <Copy aria-hidden />
-            <span className="sr-only">Copy</span>
+            <span className='sr-only'>Copy</span>
           </>
         )}
       </button>

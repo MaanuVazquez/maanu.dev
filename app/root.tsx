@@ -33,7 +33,9 @@ export const loader = async ({ request }: LoaderArgs) => {
     getFontFromCookies(request)
   ])
 
-  const sectionsWithSlug = sections.map(({ id, slug, name }) => ({ slug, id, name }))
+  const sectionsWithSlug = sections.map(({ id, slug, name }) => {
+    return { slug, id, name }
+  })
   const parsedUrl = new URL(request.url)
 
   return json({ sections: sectionsWithSlug, theme, font, origin: parsedUrl.origin, href: parsedUrl.href })
@@ -57,32 +59,32 @@ export default function App() {
   return (
     <html {...htmlProps}>
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="apple-mobile-web-app-title" content={APP_CONSTANTS.title} />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-TileColor" content={APP_CONSTANTS.themeColor} />
-        <meta name="theme-color" content={APP_CONSTANTS.themeColor} />
-        <meta name="author" content="Maanu Vazquez" />
-        <meta name="HandheldFriendly" content="True" />
-        <meta name="language" content={APP_CONSTANTS.locale} />
-        <meta name="MobileOptimized" content="320" />
-        <meta name="pagename" content={APP_CONSTANTS.title} />
-        <meta property="og:url" content={href} />
-        <meta property="og:locale" content={APP_CONSTANTS.locale} />
-        <meta property="og:image" content={`${origin}/android-chrome-512x512.png`} />
-        <meta property="og:site_name" content={APP_CONSTANTS.title} />
-        <link rel="canonical" href={href} />
-        <link rel="webmention" href="https://webmention.io/maanu.dev/webmention" />
-        <link rel="pingback" href="https://webmention.io/maanu.dev/xmlrpc" />
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width,initial-scale=1' />
+        <meta httpEquiv='X-UA-Compatible' content='IE=edge,chrome=1' />
+        <meta name='apple-mobile-web-app-title' content={APP_CONSTANTS.title} />
+        <meta name='mobile-web-app-capable' content='yes' />
+        <meta name='msapplication-TileColor' content={APP_CONSTANTS.themeColor} />
+        <meta name='theme-color' content={APP_CONSTANTS.themeColor} />
+        <meta name='author' content='Maanu Vazquez' />
+        <meta name='HandheldFriendly' content='True' />
+        <meta name='language' content={APP_CONSTANTS.locale} />
+        <meta name='MobileOptimized' content='320' />
+        <meta name='pagename' content={APP_CONSTANTS.title} />
+        <meta property='og:url' content={href} />
+        <meta property='og:locale' content={APP_CONSTANTS.locale} />
+        <meta property='og:image' content={`${origin}/android-chrome-512x512.png`} />
+        <meta property='og:site_name' content={APP_CONSTANTS.title} />
+        <link rel='canonical' href={href} />
+        <link rel='webmention' href='https://webmention.io/maanu.dev/webmention' />
+        <link rel='pingback' href='https://webmention.io/maanu.dev/xmlrpc' />
         <Meta />
         <Links />
       </head>
       <body>
-        <main className="flex h-screen w-full flex-col justify-between pb-20">
+        <main className='flex h-screen w-full flex-col justify-between pb-20'>
           <Navbar sections={sections} font={font} theme={theme} />
-          <div className="my-10 px-5 sm:my-20 sm:px-0">
+          <div className='my-10 px-5 sm:my-20 sm:px-0'>
             <Outlet />
           </div>
           <Footer />

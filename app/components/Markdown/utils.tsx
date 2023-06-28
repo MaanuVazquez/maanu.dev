@@ -6,8 +6,8 @@ import Header from './components/Header/Header'
 import SyntaxHighlighter from './components/SyntaxHighlighter/SyntaxHighlighter'
 
 export function getCodeBlock(node: Element) {
-  return node.children.find((child: any) => {
-    const childElement: Element = child
+  return node.children.find((child: unknown) => {
+    const childElement = child as Element
     return (
       childElement?.tagName === 'code' && Boolean(getLanguageFromClass(childElement?.properties?.className as string[]))
     )
@@ -39,31 +39,29 @@ export const markownComponents = {
     // Quick fix to remove inline prop which does not exist but it is coming from
     // react-markdown
     const { inline, ...props } = rest as unknown as { inline: boolean; children: string[] }
-    return <code className="dark:text-primary" {...props} />
+    return <code className='dark:text-primary' {...props} />
   },
-  a: ({ node, children, ...rest }: ComponentPropsWithoutRef<'a'> & ReactMarkdownProps) => {
-    return (
-      <a {...rest} target="_blank" rel="noopener noreferrer">
-        {children}
-      </a>
-    )
-  },
-  h1: ({ node, ...rest }: ComponentPropsWithoutRef<'h1'> & ReactMarkdownProps) => {
-    return <Header {...rest} headerComponent="h1" />
-  },
-  h2: ({ node, ...rest }: ComponentPropsWithoutRef<'h2'> & ReactMarkdownProps) => {
-    return <Header {...rest} headerComponent="h2" />
-  },
-  h3: ({ node, ...rest }: ComponentPropsWithoutRef<'h3'> & ReactMarkdownProps) => {
-    return <Header {...rest} headerComponent="h3" />
-  },
-  h4: ({ node, ...rest }: ComponentPropsWithoutRef<'h4'> & ReactMarkdownProps) => {
-    return <Header {...rest} headerComponent="h4" />
-  },
-  h5: ({ node, ...rest }: ComponentPropsWithoutRef<'h5'> & ReactMarkdownProps) => {
-    return <Header {...rest} headerComponent="h5" />
-  },
-  h6: ({ node, ...rest }: ComponentPropsWithoutRef<'h6'> & ReactMarkdownProps) => {
-    return <Header {...rest} headerComponent="h6" />
-  }
+  a: ({ node, children, ...rest }: ComponentPropsWithoutRef<'a'> & ReactMarkdownProps) => (
+    <a {...rest} target='_blank' rel='noopener noreferrer'>
+      {children}
+    </a>
+  ),
+  h1: ({ node, ...rest }: ComponentPropsWithoutRef<'h1'> & ReactMarkdownProps) => (
+    <Header {...rest} headerComponent='h1' />
+  ),
+  h2: ({ node, ...rest }: ComponentPropsWithoutRef<'h2'> & ReactMarkdownProps) => (
+    <Header {...rest} headerComponent='h2' />
+  ),
+  h3: ({ node, ...rest }: ComponentPropsWithoutRef<'h3'> & ReactMarkdownProps) => (
+    <Header {...rest} headerComponent='h3' />
+  ),
+  h4: ({ node, ...rest }: ComponentPropsWithoutRef<'h4'> & ReactMarkdownProps) => (
+    <Header {...rest} headerComponent='h4' />
+  ),
+  h5: ({ node, ...rest }: ComponentPropsWithoutRef<'h5'> & ReactMarkdownProps) => (
+    <Header {...rest} headerComponent='h5' />
+  ),
+  h6: ({ node, ...rest }: ComponentPropsWithoutRef<'h6'> & ReactMarkdownProps) => (
+    <Header {...rest} headerComponent='h6' />
+  )
 }

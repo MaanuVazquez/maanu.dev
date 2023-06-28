@@ -10,16 +10,14 @@ type PostMeta = Omit<Post, 'body' | 'updatedAt' | 'description' | 'status'>
 export function sortPosts(posts: PostMeta[], bookmarks: Bookmark[]) {
   const allPosts = [...posts, ...bookmarks]
 
-  return allPosts.sort((postA, postB) => {
-    return new Date(postB.createdAt).getTime() - new Date(postA.createdAt).getTime()
-  })
+  return allPosts.sort((postA, postB) => new Date(postB.createdAt).getTime() - new Date(postA.createdAt).getTime())
 }
 
 export function isPost(post: PostMeta | Bookmark): post is PostMeta {
   return Boolean((post as Post).slug)
 }
 
-export function calculateReadTime(postLength: number, wpm: number = 300) {
+export function calculateReadTime(postLength: number, wpm = 300) {
   return Math.ceil(postLength / wpm)
 }
 

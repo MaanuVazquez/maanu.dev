@@ -16,7 +16,9 @@ export const meta: V2_MetaFunction = () => generateMeta()
 export async function loader() {
   try {
     const [posts, bookmarks] = await Promise.all([getPosts(), getBookmarks()])
-    const postWithNeededFields = posts.map(({ id, slug, title, createdAt }) => ({ id, slug, title, createdAt }))
+    const postWithNeededFields = posts.map(({ id, slug, title, createdAt }) => {
+      return { id, slug, title, createdAt }
+    })
 
     return json({ posts: postWithNeededFields, bookmarks: bookmarks || [] })
   } catch (error) {
@@ -32,14 +34,12 @@ export const handle = {
 export default function Index() {
   const { posts, bookmarks } = useLoaderData<typeof loader>()
 
-  const allPosts = useMemo(() => {
-    return sortPosts(posts, bookmarks)
-  }, [posts, bookmarks])
+  const allPosts = useMemo(() => sortPosts(posts, bookmarks), [posts, bookmarks])
 
   return (
-    <article className="flex flex-col">
-      <h1 className="mx-auto mb-10 text-xl sm:text-3xl">Welcome to my dev blog</h1>
-      <ol className="mx-4 flex flex-col gap-y-3 text-xs sm:mx-auto sm:gap-y-5 sm:text-lg md:text-2xl">
+    <article className='flex flex-col'>
+      <h1 className='mx-auto mb-10 text-xl sm:text-3xl'>Welcome to my dev blog</h1>
+      <ol className='mx-4 flex flex-col gap-y-3 text-xs sm:mx-auto sm:gap-y-5 sm:text-lg md:text-2xl'>
         {allPosts.map(post => {
           if (isPost(post)) {
             return <Post slug={post.slug} key={post.id} title={post.title} createdAt={post.createdAt} />

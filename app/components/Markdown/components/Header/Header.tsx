@@ -96,7 +96,7 @@ function Header({ headerComponent, children, ...rest }: Props) {
   return (
     <>
       <CopyToClipboard text={slugs.copySlug}>
-        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="relative cursor-pointer">
+        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='relative cursor-pointer'>
           {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
           <Link className={classNames('absolute left-[-2rem] top-1.5 hidden text-xl', { 'sm:block': showIcon })} />
           <HeaderComponent slug={slugs.headerSlug} headerTag={headerComponent} {...rest}>

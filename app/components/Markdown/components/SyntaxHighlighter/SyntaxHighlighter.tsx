@@ -47,13 +47,13 @@ function SyntaxHighlighter({ children, language, hasMeta }: Props) {
       }
     >
       {() => (
-        <div onMouseEnter={showCopyToggle} onMouseLeave={hideCopyToggle} className="relative">
+        <div onMouseEnter={showCopyToggle} onMouseLeave={hideCopyToggle} className='relative'>
           <CopyCode show={showCopyButton} text={text.current} />
           <PrismLight
             style={style}
             language={language}
-            PreTag="pre"
-            className="codeStyle h-full w-full"
+            PreTag='pre'
+            className='codeStyle h-full w-full'
             showLineNumbers
             wrapLines={hasMeta}
             useInlineStyles

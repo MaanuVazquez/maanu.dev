@@ -13,12 +13,12 @@ type Props = {
 function Post({ title, createdAt, slug }: Props) {
   return (
     <li>
-      <ArticleIcon className="inline rounded-xl bg-primary p-1 text-3xl sm:text-5xl" aria-hidden />
-      <span className="sr-only">I wrote </span>
-      <Link to={`/posts/${slug}`} className="link ml-4 sm:ml-5">
+      <ArticleIcon className='inline rounded-xl bg-primary p-1 text-3xl sm:text-5xl' aria-hidden />
+      <span className='sr-only'>I wrote </span>
+      <Link to={`/posts/${slug}`} className='link ml-4 sm:ml-5'>
         {title}
       </Link>
-      <span className="hidden no-underline sm:inline"> on {formatRichDate(createdAt)}</span>
+      <span className='hidden no-underline sm:inline'> on {formatRichDate(createdAt)}</span>
     </li>
   )
 }
