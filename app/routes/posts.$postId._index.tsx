@@ -7,7 +7,7 @@ import Markdown from '~/components/Markdown/Markdown'
 import { formatMonthDayYear } from '~/utils/date'
 import { calculateReadTime, isPostEdited } from '~/utils/posts'
 
-export default function Asd() {
+export default function PostLayout() {
   const { title, createdAt, updatedAt, body } = useAsyncValue() as Post
   return (
     <div>
