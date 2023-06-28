@@ -11,7 +11,7 @@
     "lint:typescript": "tsc --noEmit"
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.0.9",
+    "@phosphor-icons/react": "^2.0.10",
     "@remix-run/node": "^1.18.0",
     "@remix-run/react": "^1.18.0",
     "@remix-run/serve": "^1.18.0",
