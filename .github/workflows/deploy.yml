@@ -1,9 +1,8 @@
 name: Deploy
 on:
-  workflow_run:
-    workflows: [Lint]
-    types:
-      - completed
+  push:
+    branches: 'main'
+
 jobs:
   deploy:
     if: github.actor != 'dependabot' && github.ref_name == 'main'
